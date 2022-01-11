@@ -1,0 +1,28 @@
+version: "2.0"
+
+nlu:
+- intent: greet
+  examples: |
+    - Hi
+    - Hey!
+    - Hallo
+    - Good day
+    - Good morning
+
+- intent: order_main 
+  examples: |
+    - I want to get the newsletter
+    - Can you send me the newsletter?
+    - Can you sign me up for the newsletter?
+
+- intent: order_sides
+  examples: |
+    - My email is example.com
+    - example.com
+    - Please send it to example.com
+    - Email is example.com
+
+- intent: order_drinks
+  examples: |
+    - I would like a coke please.
+    - Can I have a milkshake?

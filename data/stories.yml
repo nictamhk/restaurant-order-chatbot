@@ -1,8 +1,67 @@
+version: "3.0"
+
 stories:
- - story: greet and subscribe
-   steps:
-   - intent: greet
-   - action: utter_greet
-   - intent: subscribe
-   - action: newsletter_form
-   - active_loop: newsletter_form
+
+- story: ordinary path
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: order.main
+  - action: utter_order_confirm
+  - intent: terminate.order
+  - action: utter_total
+  - intent: payment
+  - action: utter_thank_you
+  - action: utter_goodbye
+  
+- story: happy path
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+
+- story: sad path 1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: confirm.affirm
+  - action: utter_happy
+
+- story: sad path 2
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: confirm.deny
+  - action: utter_goodbye
+
+- story: interactive_story_1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: order.main
+    entities:
+    - main dish: Big Mac
+  - action: utter_order_confirm
+  - intent: order.side
+    entities:
+    - size: medium
+    - drink: coke
+  - action: utter_order_confirm
+  - intent: terminate.order
+  - action: utter_total
+  - intent: payment
+    entities:
+    - payment: Octopus
+  - action: utter_thank_you
+  - action: utter_goodbye
+  - action: action_deactivate_loop
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null

@@ -1,28 +1,156 @@
-version: "2.0"
-
+version: "3.0"
 nlu:
 - intent: greet
   examples: |
-    - Hi
-    - Hey!
-    - Hallo
-    - Good day
-    - Good morning
-
-- intent: order_main 
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - morning
+    - hey there
+    - let's go
+    - hey dude
+    - goodmorning
+    - goodevening
+    - good afternoon
+    - Hi there, can I order with you?
+- intent: goodbye
   examples: |
-    - I want to get the newsletter
-    - Can you send me the newsletter?
-    - Can you sign me up for the newsletter?
-
-- intent: order_sides
+    - cu
+    - good by
+    - cee you later
+    - good night
+    - bye
+    - goodbye
+    - have a nice day
+    - see you around
+    - bye bye
+    - see you later
+    - thank you
+- intent: confirm.affirm
   examples: |
-    - My email is example.com
-    - example.com
-    - Please send it to example.com
-    - Email is example.com
-
-- intent: order_drinks
+    - yes
+    - thats right
+    - yeah exactly
+    - okay
+    - sure
+    - why not
+    - alright
+    - yep
+    - yeah
+    - fine
+    - for sure
+    - definitely
+    - sure thing
+    - I will take that
+    - sounds good
+    - cool
+    - that sounds good
+    - of course
+    - indeed
+- intent: confirm.deny
   examples: |
-    - I would like a coke please.
-    - Can I have a milkshake?
+    - No
+    - No thank you
+    - Nah
+    - Never mind
+    - This is not what I wanted
+    - That's not right
+    - Excuse me
+    - Scratch that
+    - I don't need it, thank you.
+    - That's okay.
+    - Wrong
+    - No please
+    - You're not helping
+    - You can't help me
+    - Can I talk to a real person instead
+    - Can I talk to your manager
+    - You are not understanding me
+    - Stop
+    - Go back
+- intent: order.changed
+  examples: |
+    - Actually I will have this instead.
+    - You know what? I will have the [chicken](main dish) instead.
+    - Sorry, should be [Big Mac](main dish) rather than the [Quarter Pounder](main dish).
+    - Sorry, it should be [sprite](drink) instead of [coke](drink).
+    - I want [large]{"entity": "size", "group": "3"} instead of [medium]{"entity": "size", "group": "2"}.
+    - Let's try the [poutine](side) instead.
+    - I changed my mind.
+    - Do you know what?
+    - Forget what I just said.
+    - Change
+    - Modify my order
+    - Undo
+- intent: order.main
+  examples: |
+    - I would like the [chicken burger](main dish) please.
+    - I would take the [McChicken](main dish).
+    - Can I have the [Big Mac](main dish) please?
+    - May I have the [McDouble](main dish) with [medium]{"entity": "size", "group": "2"} [coke](drink) and [medium]{"entity": "size", "group": "2"} [fries](side)?
+    - [McChicken](main dish).
+    - I'll try the [cheeseburger](main dish) today.
+    - I'll have the [angus beef burger](main dish).
+    - May I have the [Big Mac](main dish) please?
+- intent: order.side
+  examples: |
+    - For combo, I would like [small]{"entity": "size", "group": "1"} [coffee](drink) and [large]{"entity": "size", "group": "3"} [fries](side) to go with it.
+    - For the drink, I will have the [medium]{"entity": "size", "group": "2"} [coke](drink).
+    - For the side, can I have the [large]{"entity": "size", "group": "3"} [potato wedges](side)?
+    - [small]{"entity": "size", "group": "1"} [coffee](drink) and [medium]{"entity": "size", "group": "2"} [fries](side) please.
+    - Can I also have a [medium](size) [coke](drink) please
+- intent: terminate.order
+  examples: |
+    - That is all.
+    - That's it. Thank you.
+    - That's all I will have today.
+    - I will just have this for now.
+    - Can I get the total please?
+    - How much is it in total?
+    - I'm done with my order
+- intent: payment
+  examples: |
+    - I will pay by [cash](payment).
+    - [Credit card](payment) please.
+    - I will pay by [Octopus](payment) please
+- intent: mood_great
+  examples: |
+    - perfect
+    - great
+    - amazing
+    - feeling like a king
+    - wonderful
+    - I am feeling very good
+    - I am great
+    - I am amazing
+    - I am going to save the world
+    - super stoked
+    - extremely good
+    - so so perfect
+    - so good
+    - so perfect
+- intent: mood_unhappy
+  examples: |
+    - my day was horrible
+    - I am sad
+    - I don't feel very well
+    - I am disappointed
+    - super sad
+    - I'm so sad
+    - sad
+    - very sad
+    - unhappy
+    - not good
+    - not very good
+    - extremly sad
+    - so saad
+    - so sad
+- intent: bot_challenge
+  examples: |
+    - are you a bot?
+    - are you a human?
+    - am I talking to a bot?
+    - am I talking to a human?

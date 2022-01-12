@@ -1,0 +1,52 @@
+[
+  {
+    "tag_name": "entity",
+    "ids_to_tags": {
+      "1": "B-drink",
+      "2": "I-drink",
+      "3": "L-drink",
+      "4": "U-drink",
+      "5": "B-main dish",
+      "6": "I-main dish",
+      "7": "L-main dish",
+      "8": "U-main dish",
+      "9": "B-payment",
+      "10": "I-payment",
+      "11": "L-payment",
+      "12": "U-payment",
+      "13": "B-side",
+      "14": "I-side",
+      "15": "L-side",
+      "16": "U-side",
+      "17": "B-size",
+      "18": "I-size",
+      "19": "L-size",
+      "20": "U-size",
+      "0": "O"
+    },
+    "tags_to_ids": {
+      "B-drink": 1,
+      "I-drink": 2,
+      "L-drink": 3,
+      "U-drink": 4,
+      "B-main dish": 5,
+      "I-main dish": 6,
+      "L-main dish": 7,
+      "U-main dish": 8,
+      "B-payment": 9,
+      "I-payment": 10,
+      "L-payment": 11,
+      "U-payment": 12,
+      "B-side": 13,
+      "I-side": 14,
+      "L-side": 15,
+      "U-side": 16,
+      "B-size": 17,
+      "I-size": 18,
+      "L-size": 19,
+      "U-size": 20,
+      "O": 0
+    },
+    "num_tags": 21
+  }
+]

@@ -4,16 +4,53 @@ stories:
 
 - story: ordinary path
   steps:
-  - intent: greet
   - action: utter_greet
+  - intent: greet
   - intent: order.main
-  - action: utter_order_confirm
+  - action: order_form
+  - active_loop: order_form
   - intent: terminate.order
+  - action: utter_order_confirm
+  - action: action_deactivate_loop
   - action: utter_total
   - intent: payment
   - action: utter_thank_you
   - action: utter_goodbye
   
+- story: no sides
+  steps:
+  - intent: order.main
+  - action: order_form
+  - active_loop: order_form
+  - action: utter_anything_else
+  - intent: confirm.deny
+  - action: action_deactivate_loop
+  - active_loop: null
+  
+- story: changing minds
+  steps:
+  - intent: order.main
+  - action: order_form
+  - active_loop: order_form
+  - intent: order.changed
+  - action: action_deactivate_loop
+  - active_loop: null
+  
+- story: just sides
+  steps:
+  - intent: order.side
+  - action: order_form
+  - active_loop: order_form
+  - action: utter_anything_else_main
+  - intent: confirm.deny
+  - action: action_deactivate_loop
+  - active_loop: null
+  
+- story: ask
+  steps:
+  - intent: inquiry
+  - action: utter_recommendations
+
 - story: happy path
   steps:
   - intent: greet
@@ -28,7 +65,7 @@ stories:
   - intent: mood_unhappy
   - action: utter_cheer_up
   - action: utter_did_that_help
-  - intent: affirm
+  - intent: confirm.affirm
   - action: utter_happy
 
 - story: sad path 2
@@ -38,5 +75,27 @@ stories:
   - intent: mood_unhappy
   - action: utter_cheer_up
   - action: utter_did_that_help
-  - intent: deny
+  - intent: confirm.deny
   - action: utter_goodbye
+
+- story: interactive_story_1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: order.main
+    entities:
+    - main dish: filet o fish
+  - slot_was_set:
+    - user_main: filet o fish
+  - action: order_form
+  - active_loop: order_form
+  - slot_was_set:
+    - requested_slot: user_side
+  - action: utter_anything_else_main
+  - intent: order.side
+    entities:
+    - size: large
+    - drink: coke
+  - action: order_form
+  - slot_was_set:
+    - requested_slot: user_side

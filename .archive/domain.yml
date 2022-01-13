@@ -4,31 +4,51 @@ session_config:
   carry_over_slots_to_new_session: true
 intents:
 - greet
-- inform
-- subscribe
-slots:
-  email:
-    type: text
-    influence_conversation: false
-    mappings: []
+- payment
+- order.side
+- terminate.order
+- order.main
+- goodbye
+- confirm.affirm
+- confirm.deny
+- order.changed
+- mood_great
+- mood_unhappy
+- bot_challenge
+entities:
+- drink
+- main dish
+- payment
+- size
 responses:
   utter_greet:
-  - text: |
-      Hello! How can I help you?
-  - text: |
-      Hi!
-  utter_ask_email:
-  - text: |
-      What is your email address?
-  utter_subscribed:
-  - text: |
-      Check your inbox at {email} in order to finish subscribing to the newsletter!
-  - text: You're all set! Check your inbox at {email} to confirm your subscription.
+  - text: Hello there! How can I help you today?
+  - text: Hello! May I take your order please?
+  - text: Hey there! What would you like today?
+  - text: Hi! I can take your order.
+  utter_order_confirm:
+  - text: Item placed in cart
+  utter_total:
+  - text: Your total comes to
+  utter_thank_you:
+  - text: Your payment is well received.
+  utter_cheer_up:
+  - text: 'Here is something to cheer you up:'
+    image: https://i.imgur.com/nGF1K8f.jpg
+  utter_did_that_help:
+  - text: Did that help you?
+  utter_happy:
+  - text: Great, carry on!
+  utter_goodbye:
+  - text: Bye
+  - text: Goodbye
+  - text: See you next time
+  - text: Bye for now
+  utter_iamabot:
+  - text: I am a bot, powered by Rasa.
 actions:
-- '...'
+- utter_goodbye
 - utter_greet
-- utter_subscribed
-forms:
-  newsletter_form:
-    required_slots:
-    - email
+- utter_order_confirm
+- utter_thank_you
+- utter_total

@@ -1,0 +1,54 @@
+version: "3.0"
+
+intents:
+  - greet
+  - goodbye
+  - confirm.affirm
+  - confirm.deny
+  - order.changed
+  - order.main
+  - order.side
+  - terminate.order
+  - payment
+  - mood_great
+  - mood_unhappy
+  - bot_challenge
+
+responses:
+  utter_greet:
+  - text: "Hello there! How can I help you today?"
+  - text: "Hello! May I take your order please?"
+  - text: "Hey there! What would you like today?"
+  - text: "Hi! I can take your order."
+  
+  utter_order_confirm:
+  - text: "Item placed in cart"
+  
+  utter_total:
+  - text: "Your total comes to"
+  
+  utter_thank_you:
+  - text: "Your payment is well received."
+
+  utter_cheer_up:
+  - text: "Here is something to cheer you up:"
+    image: "https://i.imgur.com/nGF1K8f.jpg"
+
+  utter_did_that_help:
+  - text: "Did that help you?"
+
+  utter_happy:
+  - text: "Great, carry on!"
+
+  utter_goodbye:
+  - text: "Bye"
+  - text: "Goodbye"
+  - text: "See you next time"
+  - text: "Bye for now"
+
+  utter_iamabot:
+  - text: "I am a bot, powered by Rasa."
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

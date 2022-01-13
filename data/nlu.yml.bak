@@ -1,5 +1,4 @@
 version: "3.0"
-
 nlu:
 - intent: greet
   examples: |
@@ -13,10 +12,19 @@ nlu:
     - hey there
     - let's go
     - hey dude
-    - goodmorning
-    - goodevening
     - good afternoon
-
+    - Hi there, can I order with you?
+    - Howdy
+    - I would like to order
+    - Good morning
+    - Hello there, how's it going?
+    - Good afternoon, how's it going?
+- intent: chitchat
+  examples: |
+    - How's it going?
+    - The weather is bad out today.
+    - How are you?
+    - 
 - intent: goodbye
   examples: |
     - cu
@@ -30,7 +38,6 @@ nlu:
     - bye bye
     - see you later
     - thank you
-    
 - intent: confirm.affirm
   examples: |
     - yes
@@ -41,7 +48,7 @@ nlu:
     - why not
     - alright
     - yep
-    - yeah 
+    - yeah
     - fine
     - for sure
     - definitely
@@ -52,10 +59,11 @@ nlu:
     - that sounds good
     - of course
     - indeed
-
+    - Sure thing
 - intent: confirm.deny
   examples: |
     - No
+    - No thanks
     - No thank you
     - Nah
     - Never mind
@@ -74,14 +82,26 @@ nlu:
     - You are not understanding me
     - Stop
     - Go back
-
+    - that's not what I want to do
+    - wait
+    - you're no help
+    - this is no help at all
+    - this isn't working
+    - I already told you that
+    - don't like that
+    - I don't want to tell you that
+    - none of your business
+    - that's not right
+    - stop asking
+    - I want to do something else
+    - Absolutely not
 - intent: order.changed
   examples: |
     - Actually I will have this instead.
     - You know what? I will have the [chicken](main dish) instead.
     - Sorry, should be [Big Mac](main dish) rather than the [Quarter Pounder](main dish).
     - Sorry, it should be [sprite](drink) instead of [coke](drink).
-    - I want [large](size) instead of [medium](size).
+    - I want [large]{"entity": "size", "group": "3"} instead of [medium]{"entity": "size", "group": "2"}.
     - Let's try the [poutine](side) instead.
     - I changed my mind.
     - Do you know what?
@@ -89,24 +109,37 @@ nlu:
     - Change
     - Modify my order
     - Undo
-    
 - intent: order.main
   examples: |
     - I would like the [chicken burger](main dish) please.
-    - I would take the [McChicken](main dish).    
+    - I would take the [McChicken](main dish).
     - Can I have the [Big Mac](main dish) please?
-    - May I have the [McDouble](main dish) with [medium](size) [coke](drink) and [medium](size) [fries](side)?
+    - May I have the [McDouble](main dish) with [medium]{"entity": "size", "group": "2"} [coke](drink) and [medium]{"entity": "size", "group": "2"} [fries](side)?
     - [McChicken](main dish).
     - I'll try the [cheeseburger](main dish) today.
     - I'll have the [angus beef burger](main dish).
-
+    - May I have the [Big Mac](main dish) please?
+    - A [cheeseburger](main dish) please
+    - Can I get a [Filet o Fish](main dish)?
+    - I'll have a [Caesar Salad](side) and a [cheeseburger](main dish) please
+    - Hello, can I get a [cheeseburger](main dish) please?
+    - I would like a [filet o fish](main dish)
 - intent: order.side
   examples: |
-    - For combo, I would like [small](size) [coffee](drink) and [large](size) [fries](side) to go with it.
-    - For the drink, I will have the [medium](size) [coke](drink).
-    - For the side, can I have the [large](size) [potato wedges](side)?
-    - [small](size) [coffee](drink) and [medium](size) [fries](side) please.
-    
+    - For combo, I would like [small]{"entity": "size", "group": "1"} [coffee](drink) and [large]{"entity": "size", "group": "3"} [fries](side) to go with it.
+    - For the drink, I will have the [medium]{"entity": "size", "group": "2"} [coke](drink).
+    - For the side, can I have the [large]{"entity": "size", "group": "3"} [potato wedges](side)?
+    - [small]{"entity": "size", "group": "1"} [coffee](drink) and [medium]{"entity": "size", "group": "2"} [fries](side) please.
+    - Can I also have a [medium](size) [coke](drink) please
+    - I will have a [large]{"entity": "size", "group": "3"} [coke](drink) please
+- intent: inquiry
+  examples: |
+    - What do you have in your menu?
+    - What do you recommend?
+    - I don't know what to get.
+    - Any recommendations?
+    - What should I get today?
+    - Hmmm
 - intent: terminate.order
   examples: |
     - That is all.
@@ -115,12 +148,13 @@ nlu:
     - I will just have this for now.
     - Can I get the total please?
     - How much is it in total?
-    
+    - I'm done with my order
+    - That's all for me today
 - intent: payment
   examples: |
     - I will pay by [cash](payment).
     - [Credit card](payment) please.
-    
+    - I will pay by [Octopus](payment) please
 - intent: mood_great
   examples: |
     - perfect
@@ -137,7 +171,6 @@ nlu:
     - so so perfect
     - so good
     - so perfect
-
 - intent: mood_unhappy
   examples: |
     - my day was horrible
@@ -154,7 +187,6 @@ nlu:
     - extremly sad
     - so saad
     - so sad
-
 - intent: bot_challenge
   examples: |
     - are you a bot?

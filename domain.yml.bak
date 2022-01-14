@@ -2,17 +2,18 @@ version: '3.0'
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
+
 intents:
 - greet
 - chitchat
 - payment
-- order.side
 - terminate.order
-- order.main
+- order
 - inquiry
 - goodbye
 - confirm.affirm
 - confirm.deny
+- dissatisfied
 - order.changed
 - mood_great
 - mood_unhappy
@@ -42,6 +43,12 @@ slots:
         - type: from_entity
           entity: side
     
+    user_drink:
+        type: text
+        mappings:
+        - type: from_entity
+          entity: drink
+    
     user_drink_size:
         type: categorical
         values:
@@ -52,10 +59,34 @@ slots:
         - type: from_entity
           entity: size
         influence_conversation: true
-
+        
+    main_ordered:
+        type: bool
+        mappings:
+        - type: custom
+        
+    side_ordered:
+        type: bool
+        mappings:
+        - type: custom
+        
+    size_specified:
+        type: bool
+        mappings:
+        - type: custom
+        
+    price:
+        type: float
+        min_value: 0.0
+        max_value: 1000.0
+        mappings:
+        - type: custom
+    
 responses:
   utter_chitchat_greet:
-  - text: Welcome to the restaurant. How is it going today?
+  - text: Welcome to the restaurant. Doing well here. Can I take your order?
+  - text: Not bad thanks! How can I help you today?
+  - text: Great! Can I get you something to eat or drink?
   utter_greet:
   - text: Hello there! How can I help you today?
   - text: Hello! May I take your order please?
@@ -63,45 +94,63 @@ responses:
   - text: Hi! I can take your order.
   - text: Good day! Welcome to the restaurant. May I take your order?
   - text: Welcome to the restaurant! How may I help you today?
+  - text: Hey there, can I get you something to eat or drink?
   utter_chitchat:
   - text: Great to hear! I am doing well.
   utter_order_confirm:
-  - text: Got it, a {user_main}. 
-  - text: Item placed in cart
+  - text: Got it, so you've ordered a {user_main} with a {user_side} and a {user_drink_size}{user_drink}. Is that right?
   utter_total:
-  - text: Your total comes to {}. How would you like to pay today?
-  - text: Your total today is {}. How would you like to pay?
+  - text: Your total comes to {price}. How would you like to pay today?
+  - text: Your total today is {price}. How would you like to pay?
   utter_thank_you:
   - text: Your payment is well received.
   utter_cheer_up:
   - text: 'Here is something to cheer you up:'
     image: https://i.imgur.com/nGF1K8f.jpg
+  utter_sorry:
+  - text: Sorry I did not get you. Let's take a step back.
   utter_did_that_help:
   - text: Did that help you?
   utter_happy:
   - text: Great, carry on!
   utter_goodbye:
-  - text: Bye
-  - text: Goodbye
-  - text: See you next time
-  - text: Bye for now
+  - text: Thanks for ordering with me! You can retrieve your order by the counter over there.
+  - text: Goodbye! You can get your order at the counter in a few minutes.
+  - text: See you next time! Please go get your order at the counter.
+  - text: Bye for now! Please wait a few minutes as we prepare your order.
+  utter_goodbye_no_order:
+  - text: That's all good. See you next time!
   utter_iamabot:
   - text: I am a bot, powered by Rasa.
   utter_ask_user_side:
   - text: Would you like any sides to go with your {user_main} today?
+  - text: What would you like to go with your meal?
+  utter_ask:
+  - text: What would you like?
+  - text: What can I get for you?
   utter_anything_else:
   - text: Anything else you would like today?
   - text: Can I get you something else?
   - text: Do you want something to drink?
   - text: Anything else?
   - text: Is there anything else I can get for you today?
+  - text: Is that all for today?
   utter_ask_user_main:
   - text: Do you want to get something to eat?
   - text: Anything to go with your side order today?
   - text: Anything else?
   - text: Can I get you something else?
+  utter_ask_user_drink:
+  - text: Anything to drink?
+  - text: Can I get you something to drink?
+  - text: Something to drink?
+  utter_ask_user_drink_size:
+  - text: For your drink, what size?
+  - text: What size would you like your {user_drink}?
   utter_recommendations:
   - text: We have this {} with a discount now. Would you like to give it a try?
+  - text: May I suggest {}? It is crunchy good.
+  - text: I think you can try {}. Would you like to take this?
 
 actions:
 - utter_goodbye
@@ -109,6 +158,9 @@ actions:
 - utter_order_confirm
 - utter_thank_you
 - utter_total
+- utter_ask_user_main
+- utter_ask_user_side
+- utter_anything_else
 - ActionHelloWorld
 - validate_order_form
 
@@ -117,3 +169,14 @@ forms:
     required_slots:
         - user_main
         - user_side
+        - user_drink
+        - user_drink_size
+        
+lookup:
+    user_main:
+        - Big Mac
+        - Quarter Pounder
+        - Filet o Fish
+        - Cheeseburger
+        - Angus Beef Burger
+        - McChicken

@@ -17,17 +17,19 @@ nlu:
     - Howdy
     - I would like to order
     - Good morning
-    - Hello there, how's it going?
-    - Good afternoon, how's it going?
 - intent: chitchat
   examples: |
     - How's it going?
     - The weather is bad out today.
+    - The weather is surely nice out today.
     - How are you?
-    - 
+    - How's everything going for you?
+    - Good day, how's it going?
+    - Hello there, how's it going?
+    - Good afternoon, how's it going?
 - intent: goodbye
   examples: |
-    - cu
+    - see you
     - good by
     - cee you later
     - good night
@@ -60,6 +62,7 @@ nlu:
     - of course
     - indeed
     - Sure thing
+    - yes, that's right
 - intent: confirm.deny
   examples: |
     - No
@@ -67,14 +70,18 @@ nlu:
     - No thank you
     - Nah
     - Never mind
-    - This is not what I wanted
-    - That's not right
     - Excuse me
     - Scratch that
     - I don't need it, thank you.
     - That's okay.
-    - Wrong
     - No please
+    - wait
+    - Absolutely not
+- intent: dissatisfied
+  examples: |
+    - This is not what I wanted
+    - That's not right
+    - Wrong
     - You're not helping
     - You can't help me
     - Can I talk to a real person instead
@@ -83,7 +90,6 @@ nlu:
     - Stop
     - Go back
     - that's not what I want to do
-    - wait
     - you're no help
     - this is no help at all
     - this isn't working
@@ -94,7 +100,6 @@ nlu:
     - that's not right
     - stop asking
     - I want to do something else
-    - Absolutely not
 - intent: order.changed
   examples: |
     - Actually I will have this instead.
@@ -109,7 +114,7 @@ nlu:
     - Change
     - Modify my order
     - Undo
-- intent: order.main
+- intent: order
   examples: |
     - I would like the [chicken burger](main dish) please.
     - I would take the [McChicken](main dish).
@@ -124,14 +129,13 @@ nlu:
     - I'll have a [Caesar Salad](side) and a [cheeseburger](main dish) please
     - Hello, can I get a [cheeseburger](main dish) please?
     - I would like a [filet o fish](main dish)
-- intent: order.side
-  examples: |
     - For combo, I would like [small]{"entity": "size", "group": "1"} [coffee](drink) and [large]{"entity": "size", "group": "3"} [fries](side) to go with it.
     - For the drink, I will have the [medium]{"entity": "size", "group": "2"} [coke](drink).
     - For the side, can I have the [large]{"entity": "size", "group": "3"} [potato wedges](side)?
     - [small]{"entity": "size", "group": "1"} [coffee](drink) and [medium]{"entity": "size", "group": "2"} [fries](side) please.
     - Can I also have a [medium](size) [coke](drink) please
     - I will have a [large]{"entity": "size", "group": "3"} [coke](drink) please
+    - Sure, I will have a [Filet o Fish](main dish)
 - intent: inquiry
   examples: |
     - What do you have in your menu?
@@ -150,11 +154,13 @@ nlu:
     - How much is it in total?
     - I'm done with my order
     - That's all for me today
+    - No thanks, just the [Filet o Fish](main dish) is enough
 - intent: payment
   examples: |
     - I will pay by [cash](payment).
     - [Credit card](payment) please.
     - I will pay by [Octopus](payment) please
+    - I'll pay by [Octopus](payment) please
 - intent: mood_great
   examples: |
     - perfect

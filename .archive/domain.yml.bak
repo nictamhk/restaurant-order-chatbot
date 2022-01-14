@@ -1,54 +1,119 @@
-version: "3.0"
-
-intents:
-  - greet
-  - goodbye
-  - confirm.affirm
-  - confirm.deny
-  - order.changed
-  - order.main
-  - order.side
-  - terminate.order
-  - payment
-  - mood_great
-  - mood_unhappy
-  - bot_challenge
-
-responses:
-  utter_greet:
-  - text: "Hello there! How can I help you today?"
-  - text: "Hello! May I take your order please?"
-  - text: "Hey there! What would you like today?"
-  - text: "Hi! I can take your order."
-  
-  utter_order_confirm:
-  - text: "Item placed in cart"
-  
-  utter_total:
-  - text: "Your total comes to"
-  
-  utter_thank_you:
-  - text: "Your payment is well received."
-
-  utter_cheer_up:
-  - text: "Here is something to cheer you up:"
-    image: "https://i.imgur.com/nGF1K8f.jpg"
-
-  utter_did_that_help:
-  - text: "Did that help you?"
-
-  utter_happy:
-  - text: "Great, carry on!"
-
-  utter_goodbye:
-  - text: "Bye"
-  - text: "Goodbye"
-  - text: "See you next time"
-  - text: "Bye for now"
-
-  utter_iamabot:
-  - text: "I am a bot, powered by Rasa."
-
+version: '3.0'
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
+intents:
+- greet
+- chitchat
+- payment
+- order.side
+- terminate.order
+- order.main
+- inquiry
+- goodbye
+- confirm.affirm
+- confirm.deny
+- order.changed
+- mood_great
+- mood_unhappy
+- bot_challenge
+
+entities:
+- drink
+- main dish
+- payment
+- side
+- size:
+    groups:
+    - 1
+    - 2
+    - 3
+    
+slots:
+    user_main:
+        type: text
+        mappings:
+        - type: from_entity
+          entity: "main dish"
+        
+    user_side:
+        type: text
+        mappings:
+        - type: from_entity
+          entity: side
+    
+    user_drink_size:
+        type: categorical
+        values:
+            - small
+            - medium
+            - large
+        mappings:
+        - type: from_entity
+          entity: size
+        influence_conversation: true
+
+responses:
+  utter_chitchat_greet:
+  - text: Welcome to the restaurant. How is it going today?
+  utter_greet:
+  - text: Hello there! How can I help you today?
+  - text: Hello! May I take your order please?
+  - text: Hey there! What would you like today?
+  - text: Hi! I can take your order.
+  - text: Good day! Welcome to the restaurant. May I take your order?
+  - text: Welcome to the restaurant! How may I help you today?
+  utter_chitchat:
+  - text: Great to hear! I am doing well.
+  utter_order_confirm:
+  - text: Got it, a {user_main}. 
+  - text: Item placed in cart
+  utter_total:
+  - text: Your total comes to {}. How would you like to pay today?
+  - text: Your total today is {}. How would you like to pay?
+  utter_thank_you:
+  - text: Your payment is well received.
+  utter_cheer_up:
+  - text: 'Here is something to cheer you up:'
+    image: https://i.imgur.com/nGF1K8f.jpg
+  utter_did_that_help:
+  - text: Did that help you?
+  utter_happy:
+  - text: Great, carry on!
+  utter_goodbye:
+  - text: Bye
+  - text: Goodbye
+  - text: See you next time
+  - text: Bye for now
+  utter_iamabot:
+  - text: I am a bot, powered by Rasa.
+  utter_ask_user_side:
+  - text: Would you like any sides to go with your {user_main} today?
+  utter_anything_else:
+  - text: Anything else you would like today?
+  - text: Can I get you something else?
+  - text: Do you want something to drink?
+  - text: Anything else?
+  - text: Is there anything else I can get for you today?
+  utter_ask_user_main:
+  - text: Do you want to get something to eat?
+  - text: Anything to go with your side order today?
+  - text: Anything else?
+  - text: Can I get you something else?
+  utter_recommendations:
+  - text: We have this {} with a discount now. Would you like to give it a try?
+
+actions:
+- utter_goodbye
+- utter_greet
+- utter_order_confirm
+- utter_thank_you
+- utter_total
+- ActionHelloWorld
+- validate_order_form
+
+forms:
+  order_form:
+    required_slots:
+        - user_main
+        - user_side

@@ -70,5 +70,11 @@ class ValidateOrderForm(FormValidationAction):
             return {"user_side": None}
     
     async def run(self, dispatcher, tracker, domain):
-        continue
+        slot_value = tracker.get_slot('user_main')
+        price_list = self.menu_db("main")
+        if slot_value.lower() in self.menu_db("main"):
+            price = price_list[slot_value.lower()]
+        else:
+            price = 0
             
+        dispatcher.utter_message(template = "utter_total", name = str(price))

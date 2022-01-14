@@ -4,98 +4,81 @@ stories:
 
 - story: ordinary path
   steps:
-  - action: utter_greet
-  - intent: greet
-  - intent: order.main
-  - action: order_form
-  - active_loop: order_form
-  - intent: terminate.order
-  - action: utter_order_confirm
-  - action: action_deactivate_loop
-  - action: utter_total
-  - intent: payment
-  - action: utter_thank_you
-  - action: utter_goodbye
-  
-- story: no sides
+    - intent: greet
+    - action: utter_greet
+    - intent: order
+    - action: order_form
+    - active_loop: order_form
+    - intent: terminate.order
+    - active_loop: null
+    - action: utter_order_confirm
+    - action: utter_anything_else
+    
+- story: no more order
   steps:
-  - intent: order.main
-  - action: order_form
-  - active_loop: order_form
-  - action: utter_anything_else
-  - intent: confirm.deny
-  - action: action_deactivate_loop
-  - active_loop: null
-  
-- story: changing minds
-  steps:
-  - intent: order.main
-  - action: order_form
-  - active_loop: order_form
-  - intent: order.changed
-  - action: action_deactivate_loop
-  - active_loop: null
-  
-- story: just sides
-  steps:
-  - intent: order.side
-  - action: order_form
-  - active_loop: order_form
-  - action: utter_anything_else_main
-  - intent: confirm.deny
-  - action: action_deactivate_loop
-  - active_loop: null
-  
-- story: ask
-  steps:
-  - intent: inquiry
-  - action: utter_recommendations
+    - action: utter_anything_else
+    - intent: confirm.deny
+    - action: action_deactivate_loop
+    - action: validate_order_form
+    - action: utter_total
+    - intent: payment
+    - action: utter_thank_you
+    - action: utter_goodbye
 
-- story: happy path
+- story: order more
   steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_great
-  - action: utter_happy
+    - action: utter_anything_else
+    - intent: confirm.affirm
+    - action: order_form
+    - active_loop: order_form
+    - intent: terminate.order
+    - active_loop: null
+    - action: utter_order_confirm
+    - action: utter_anything_else
 
-- story: sad path 1
+- story: order changed
   steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: confirm.affirm
-  - action: utter_happy
+    - intent: order.changed
+    - action: utter_goodbye_no_order
 
-- story: sad path 2
+- story: inquiry first
   steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: confirm.deny
-  - action: utter_goodbye
-
+    - intent: greet
+    - action: utter_greet
+    - action: utter_chitchat
+    - intent: inquiry
+    - action: utter_recommendations
+    - or:
+        - intent: confirm.affirm
+        - intent: confirm.deny
+    - action: utter_order_confirm
+    - action: utter_anything_else
+    - action: utter_total
+    - intent: payment
+    - action: utter_thank_you
+    - action: utter_goodbye
+    
 - story: interactive_story_1
   steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: order.main
+  - intent: chitchat
+  - action: utter_chitchat_greet
+  - intent: order
     entities:
-    - main dish: filet o fish
+    - main dish: Filet o Fish
   - slot_was_set:
-    - user_main: filet o fish
+    - user_main: Filet o Fish
   - action: order_form
   - active_loop: order_form
   - slot_was_set:
     - requested_slot: user_side
-  - action: utter_anything_else_main
-  - intent: order.side
+  - intent: terminate.order
     entities:
-    - size: large
-    - drink: coke
-  - action: order_form
-  - slot_was_set:
-    - requested_slot: user_side
+    - main dish: Filet o Fish
+  - action: utter_order_confirm
+  - intent: confirm.affirm
+  - action: utter_total
+  - intent: payment
+    entities:
+    - payment: Octopus
+  - action: utter_thank_you
+  - action: utter_goodbye

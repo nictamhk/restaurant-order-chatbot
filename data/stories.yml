@@ -4,98 +4,143 @@ stories:
 
 - story: ordinary path
   steps:
-  - action: utter_greet
-  - intent: greet
-  - intent: order.main
+    - intent: greet
+    - action: utter_greet
+    - intent: order
+    - action: order_form
+    - active_loop: order_form
+    - intent: terminate.order
+    - active_loop: null
+    - action: utter_order_confirm
+    - action: utter_anything_else
+    
+- story: no more order
+  steps:
+    - action: utter_anything_else
+    - intent: confirm.deny
+    - action: action_deactivate_loop
+    - action: validate_order_form
+    - action: utter_total
+    - intent: payment
+    - action: utter_thank_you
+    - action: utter_goodbye
+
+- story: order more
+  steps:
+    - action: utter_anything_else
+    - intent: confirm.affirm
+    - action: order_form
+    - active_loop: order_form
+    - intent: terminate.order
+    - active_loop: null
+    - action: utter_order_confirm
+    - action: utter_anything_else
+
+- story: order changed
+  steps:
+    - intent: order.changed
+    - action: order_form
+    - active_loop: order_form
+    - intent: terminate.order
+    - active_loop: null
+    - action: utter_order_confirm
+    - action: utter_anything_else
+
+- story: inquiry first
+  steps:
+    - intent: greet
+    - action: utter_greet
+    - action: utter_chitchat
+    - intent: inquiry
+    - action: utter_recommendations
+    - or:
+        - intent: confirm.affirm
+        - intent: confirm.deny
+    - action: utter_order_confirm
+    - action: utter_anything_else
+    - action: utter_total
+    - intent: payment
+    - action: utter_thank_you
+    - action: utter_goodbye
+    
+- story: interactive_story_1
+  steps:
+  - intent: chitchat
+  - action: utter_chitchat_greet
+  - intent: order
+    entities:
+    - main dish: Filet o Fish
+  - slot_was_set:
+    - user_main: Filet o Fish
   - action: order_form
   - active_loop: order_form
+  - slot_was_set:
+    - requested_slot: user_side
   - intent: terminate.order
+    entities:
+    - main dish: Filet o Fish
   - action: utter_order_confirm
-  - action: action_deactivate_loop
+  - intent: confirm.affirm
   - action: utter_total
   - intent: payment
+    entities:
+    - payment: Octopus
   - action: utter_thank_you
-  - action: utter_goodbye
-  
-- story: no sides
-  steps:
-  - intent: order.main
-  - action: order_form
-  - active_loop: order_form
-  - action: utter_anything_else
-  - intent: confirm.deny
-  - action: action_deactivate_loop
-  - active_loop: null
-  
-- story: changing minds
-  steps:
-  - intent: order.main
-  - action: order_form
-  - active_loop: order_form
-  - intent: order.changed
-  - action: action_deactivate_loop
-  - active_loop: null
-  
-- story: just sides
-  steps:
-  - intent: order.side
-  - action: order_form
-  - active_loop: order_form
-  - action: utter_ask_user_main
-  - intent: confirm.deny
-  - action: action_deactivate_loop
-  - active_loop: null
-  
-- story: ask
-  steps:
-  - intent: inquiry
-  - action: utter_recommendations
-
-- story: happy path
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_great
-  - action: utter_happy
-
-- story: sad path 1
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: confirm.affirm
-  - action: utter_happy
-
-- story: sad path 2
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: confirm.deny
   - action: utter_goodbye
 
 - story: interactive_story_1
   steps:
   - intent: greet
   - action: utter_greet
-  - intent: order.main
+  - intent: order
     entities:
-    - main dish: filet o fish
-  - slot_was_set:
-    - user_main: filet o fish
+    - main dish: Quarter Pounder with Bacon
   - action: order_form
   - active_loop: order_form
   - slot_was_set:
+    - requested_slot: user_main
+  - slot_was_set:
+    - user_main: Big Mac
+  - slot_was_set:
+    - user_main: Big Mac
+  - slot_was_set:
     - requested_slot: user_side
-  - action: utter_ask_user_main
-  - intent: order.side
+  - intent: order
     entities:
-    - size: large
-    - drink: coke
+    - side: Hash Brown
   - action: order_form
   - slot_was_set:
     - requested_slot: user_side
+  - intent: order
+    entities:
+    - side: Hash Brown
+  - action: order_form
+  - slot_was_set:
+    - requested_slot: user_side
+  - slot_was_set:
+    - user_side: Fries
+  - slot_was_set:
+    - user_side: null
+  - slot_was_set:
+    - requested_slot: user_side
+  - intent: order.changed
+    entities:
+    - drink: milk tea
+  - action: order_form
+  - slot_was_set:
+    - requested_slot: user_side
+  - slot_was_set:
+    - user_drink: coke
+  - slot_was_set:
+    - user_drink: coke
+  - slot_was_set:
+    - requested_slot: user_side
+  - intent: terminate.order
+  - action: utter_order_confirm
+  - intent: confirm.affirm
+  - action: utter_total
+  - intent: payment
+    entities:
+    - payment: credit card
+  - action: utter_thank_you
+  - action: utter_goodbye

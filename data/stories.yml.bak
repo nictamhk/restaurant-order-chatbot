@@ -12,12 +12,14 @@ stories:
     - intent: terminate.order
     - active_loop: null
     - action: utter_order_confirm
+    - action: action_listen
     - action: utter_anything_else
+    - checkpoint: nothing_else
     
 - story: no more order
   steps:
-    - action: utter_anything_else
-    - intent: confirm.deny
+    - checkpoint: nothing_else
+    - intent: confirm.affirm
     - action: action_deactivate_loop
     - action: validate_order_form
     - action: utter_total
@@ -27,19 +29,25 @@ stories:
 
 - story: order more
   steps:
-    - action: utter_anything_else
-    - intent: confirm.affirm
+    - checkpoint: nothing_else
+    - intent: confirm.deny
     - action: order_form
     - active_loop: order_form
     - intent: terminate.order
     - active_loop: null
     - action: utter_order_confirm
     - action: utter_anything_else
+    - checkpoint: nothing_else
 
 - story: order changed
   steps:
     - intent: order.changed
-    - action: utter_goodbye_no_order
+    - action: order_form
+    - active_loop: order_form
+    - intent: terminate.order
+    - active_loop: null
+    - action: utter_order_confirm
+    - action: utter_anything_else
 
 - story: inquiry first
   steps:
@@ -53,10 +61,7 @@ stories:
         - intent: confirm.deny
     - action: utter_order_confirm
     - action: utter_anything_else
-    - action: utter_total
-    - intent: payment
-    - action: utter_thank_you
-    - action: utter_goodbye
+    - checkpoint: nothing_else
     
 - story: interactive_story_1
   steps:
@@ -81,4 +86,89 @@ stories:
     entities:
     - payment: Octopus
   - action: utter_thank_you
+  - action: utter_goodbye
+
+- story: interactive_story_1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: order
+    entities:
+    - main dish: Quarter Pounder with Bacon
+  - action: order_form
+  - active_loop: order_form
+  - slot_was_set:
+    - requested_slot: user_main
+  - slot_was_set:
+    - user_main: Big Mac
+  - slot_was_set:
+    - user_main: Big Mac
+  - slot_was_set:
+    - requested_slot: user_side
+  - intent: order
+    entities:
+    - side: Hash Brown
+  - action: order_form
+  - slot_was_set:
+    - requested_slot: user_side
+  - intent: order
+    entities:
+    - side: Hash Brown
+  - action: order_form
+  - slot_was_set:
+    - requested_slot: user_side
+  - slot_was_set:
+    - user_side: Fries
+  - slot_was_set:
+    - user_side: null
+  - slot_was_set:
+    - requested_slot: user_side
+  - intent: order.changed
+    entities:
+    - drink: milk tea
+  - action: order_form
+  - slot_was_set:
+    - requested_slot: user_side
+  - slot_was_set:
+    - user_drink: coke
+  - slot_was_set:
+    - user_drink: coke
+  - slot_was_set:
+    - requested_slot: user_side
+  - intent: terminate.order
+  - action: utter_order_confirm
+  - intent: confirm.affirm
+  - action: utter_total
+  - intent: payment
+    entities:
+    - payment: credit card
+  - action: utter_thank_you
+  - action: utter_goodbye
+
+- story: interactive_story_1
+  steps:
+  - intent: chitchat
+  - action: utter_chitchat_greet
+  - intent: order
+    entities:
+    - main dish: Filet o Fish
+  - slot_was_set:
+    - user_main: Filet o Fish
+  - action: order_form
+  - active_loop: order_form
+  - slot_was_set:
+    - requested_slot: user_side
+  - slot_was_set:
+    - user_drink: coke
+  - slot_was_set:
+    - requested_slot: user_side
+  - intent: terminate.order
+  - action: utter_order_confirm
+  - intent: confirm.affirm
+  - action: utter_anything_else
+  - intent: confirm.deny
+  - action: utter_total
+  - intent: payment
+    entities:
+    - payment: PayWave
   - action: utter_goodbye

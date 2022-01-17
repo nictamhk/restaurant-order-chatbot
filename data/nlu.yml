@@ -68,6 +68,7 @@ nlu:
     - Sure thing
     - yes, that's right
     - yes that's right
+    - yeah, let's do it
 - intent: confirm.deny
   examples: |
     - No
@@ -168,27 +169,25 @@ nlu:
     - That's all for me today
     - No thanks, just the [Filet o Fish](main dish) is enough
     - That's all I'll have for today
+    - Nothing else.
+    - I'm good with my order.
 - intent: payment
   examples: |
     - I will pay by [cash](payment).
     - [Credit card](payment) please.
     - I will pay by [Octopus](payment) please
     - I'll pay by [Octopus](payment) please
-    - [credit card](payment) please
+    - [Pay wave](payment) please
 - intent: mood_great
   examples: |
     - perfect
     - great
     - amazing
-    - feeling like a king
     - wonderful
     - I am feeling very good
     - I am great
     - I am amazing
-    - I am going to save the world
-    - super stoked
     - extremely good
-    - so so perfect
     - so good
     - so perfect
 - intent: mood_unhappy
@@ -204,8 +203,7 @@ nlu:
     - unhappy
     - not good
     - not very good
-    - extremly sad
-    - so saad
+    - extremely sad
     - so sad
 - intent: bot_challenge
   examples: |

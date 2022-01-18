@@ -21,6 +21,8 @@ stories:
     - checkpoint: nothing_else
     - intent: confirm.affirm
     - action: action_deactivate_loop
+    - slot_was_set:
+        - end_order: true
     - action: validate_order_form
     - action: utter_total
     - intent: payment
@@ -171,4 +173,27 @@ stories:
   - intent: payment
     entities:
     - payment: PayWave
+  - action: utter_goodbye
+
+- story: interactive_story_1
+  steps:
+  - slot_was_set:
+    - user_main: filet o fish
+  - slot_was_set:
+    - requested_slot: user_side
+  - slot_was_set:
+    - user_side: salad
+  - slot_was_set:
+    - requested_slot: user_drink
+  - intent: payment
+    entities:
+    - payment: Octopus
+  - action: utter_thank_you
+  - action: utter_order_confirm
+  - intent: confirm.affirm
+  - action: utter_total
+  - intent: payment
+    entities:
+    - payment: octopus
+  - action: utter_thank_you
   - action: utter_goodbye

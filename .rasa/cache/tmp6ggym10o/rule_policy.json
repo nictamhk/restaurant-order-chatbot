@@ -1,0 +1,46 @@
+{
+  "lookup": {
+    "rules": {
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"slots\": {\"end_order\": [1.0, 0.0]}, \"user\": {\"intent\": \"goodbye\"}}]": "utter_goodbye",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"slots\": {\"end_order\": [1.0, 0.0]}, \"user\": {\"intent\": \"goodbye\"}}, {\"prev_action\": {\"action_name\": \"utter_goodbye\"}, \"slots\": {\"end_order\": [1.0, 0.0]}, \"user\": {\"intent\": \"goodbye\"}}]": "action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"slots\": {\"end_order\": [1.0, 0.0]}, \"user\": {\"intent\": \"order\"}}]": "order_form",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"slots\": {\"end_order\": [1.0, 0.0]}, \"user\": {\"intent\": \"order\"}}, {\"prev_action\": {\"action_name\": \"order_form\"}, \"slots\": {\"end_order\": [1.0, 0.0]}, \"user\": {\"intent\": \"order\"}}]": "action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"slots\": {\"end_order\": [1.0, 0.0]}, \"user\": {\"intent\": \"bot_challenge\"}}]": "utter_iamabot",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"slots\": {\"end_order\": [1.0, 0.0]}, \"user\": {\"intent\": \"bot_challenge\"}}, {\"prev_action\": {\"action_name\": \"utter_iamabot\"}, \"slots\": {\"end_order\": [1.0, 0.0]}, \"user\": {\"intent\": \"bot_challenge\"}}]": "action_listen",
+      "[{\"slots\": {\"end_order\": [1.0, 0.0]}}]": "action_listen",
+      "[{\"slots\": {\"end_order\": [1.0, 0.0]}}, {\"prev_action\": {\"action_name\": \"action_listen\"}, \"slots\": {\"end_order\": [1.0, 0.0]}, \"user\": {\"intent\": \"chitchat\"}}]": "utter_chitchat_greet",
+      "[{\"slots\": {\"end_order\": [1.0, 0.0]}}, {\"prev_action\": {\"action_name\": \"action_listen\"}, \"slots\": {\"end_order\": [1.0, 0.0]}, \"user\": {\"intent\": \"chitchat\"}}, {\"prev_action\": {\"action_name\": \"utter_chitchat_greet\"}, \"slots\": {\"end_order\": [1.0, 0.0]}, \"user\": {\"intent\": \"chitchat\"}}]": "action_listen"
+    },
+    "rule_only_slots": [],
+    "rule_only_loops": [],
+    "rules_for_loop_unhappy_path": {
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}}, {\"active_loop\": {\"name\": \"order_form\"}, \"prev_action\": {\"action_name\": \"order_form\"}, \"slots\": {\"end_order\": [1.0, 0.0]}, \"user\": {\"intent\": \"order.changed\"}}]": "do_not_predict_loop_action",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}}, {\"active_loop\": {\"name\": \"order_form\"}, \"prev_action\": {\"action_name\": \"order_form\"}, \"slots\": {\"end_order\": [1.0, 0.0]}, \"user\": {\"intent\": \"confirm.deny\"}}]": "do_not_predict_loop_action",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}}, {\"active_loop\": {\"name\": \"order_form\"}, \"prev_action\": {\"action_name\": \"order_form\"}, \"slots\": {\"end_order\": [1.0, 0.0]}, \"user\": {\"intent\": \"order\"}}]": "do_not_predict_loop_action",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}}, {\"active_loop\": {\"name\": \"order_form\"}, \"prev_action\": {\"action_name\": \"order_form\"}, \"slots\": {\"end_order\": [1.0, 0.0], \"user_main\": [1.0]}, \"user\": {\"entities\": [\"main dish\"], \"intent\": \"order\"}}]": "do_not_predict_loop_action",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}}, {\"active_loop\": {\"name\": \"order_form\"}, \"prev_action\": {\"action_name\": \"utter_order_confirm\"}, \"slots\": {\"end_order\": [1.0, 0.0], \"user_main\": [1.0]}, \"user\": {\"entities\": [\"main dish\"], \"intent\": \"terminate.order\"}}]": "do_not_predict_loop_action",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}}, {\"active_loop\": {\"name\": \"order_form\"}, \"prev_action\": {\"action_name\": \"utter_total\"}, \"slots\": {\"end_order\": [1.0, 0.0], \"user_main\": [1.0]}, \"user\": {\"intent\": \"confirm.affirm\"}}]": "do_not_predict_loop_action",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}}, {\"active_loop\": {\"name\": \"order_form\"}, \"prev_action\": {\"action_name\": \"utter_thank_you\"}, \"slots\": {\"end_order\": [1.0, 0.0], \"user_main\": [1.0]}, \"user\": {\"entities\": [\"payment\"], \"intent\": \"payment\"}}]": "do_not_predict_loop_action",
+      "[{\"prev_action\": {\"action_name\": \"utter_thank_you\"}}, {\"active_loop\": {\"name\": \"order_form\"}, \"prev_action\": {\"action_name\": \"utter_goodbye\"}, \"slots\": {\"end_order\": [1.0, 0.0], \"user_main\": [1.0]}, \"user\": {\"entities\": [\"payment\"], \"intent\": \"payment\"}}]": "do_not_predict_loop_action",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}}, {\"active_loop\": {\"name\": \"order_form\"}, \"prev_action\": {\"action_name\": \"order_form\"}, \"slots\": {\"end_order\": [1.0, 0.0], \"user_main\": [1.0], \"user_side\": [1.0]}, \"user\": {\"entities\": [\"side\"], \"intent\": \"order\"}}]": "do_not_predict_loop_action",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}}, {\"active_loop\": {\"name\": \"order_form\"}, \"prev_action\": {\"action_name\": \"order_form\"}, \"slots\": {\"end_order\": [1.0, 0.0], \"user_main\": [1.0]}, \"user\": {\"entities\": [\"side\"], \"intent\": \"order\"}}]": "do_not_predict_loop_action",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}}, {\"active_loop\": {\"name\": \"order_form\"}, \"prev_action\": {\"action_name\": \"order_form\"}, \"slots\": {\"end_order\": [1.0, 0.0], \"user_drink\": [1.0], \"user_main\": [1.0]}, \"user\": {\"entities\": [\"drink\"], \"intent\": \"order.changed\"}}]": "do_not_predict_loop_action",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}}, {\"active_loop\": {\"name\": \"order_form\"}, \"prev_action\": {\"action_name\": \"order_form\"}, \"slots\": {\"end_order\": [1.0, 0.0], \"user_drink\": [1.0], \"user_main\": [1.0]}, \"user\": {\"entities\": [\"main dish\"], \"intent\": \"order\"}}]": "do_not_predict_loop_action",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}}, {\"active_loop\": {\"name\": \"order_form\"}, \"prev_action\": {\"action_name\": \"utter_order_confirm\"}, \"slots\": {\"end_order\": [1.0, 0.0], \"user_drink\": [1.0], \"user_main\": [1.0]}, \"user\": {\"intent\": \"terminate.order\"}}]": "do_not_predict_loop_action",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}}, {\"active_loop\": {\"name\": \"order_form\"}, \"prev_action\": {\"action_name\": \"utter_anything_else\"}, \"slots\": {\"end_order\": [1.0, 0.0], \"user_drink\": [1.0], \"user_main\": [1.0]}, \"user\": {\"intent\": \"confirm.affirm\"}}]": "do_not_predict_loop_action",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}}, {\"active_loop\": {\"name\": \"order_form\"}, \"prev_action\": {\"action_name\": \"utter_total\"}, \"slots\": {\"end_order\": [1.0, 0.0], \"user_drink\": [1.0], \"user_main\": [1.0]}, \"user\": {\"intent\": \"confirm.deny\"}}]": "do_not_predict_loop_action",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}}, {\"active_loop\": {\"name\": \"order_form\"}, \"prev_action\": {\"action_name\": \"utter_goodbye\"}, \"slots\": {\"end_order\": [1.0, 0.0], \"user_drink\": [1.0], \"user_main\": [1.0]}, \"user\": {\"entities\": [\"payment\"], \"intent\": \"payment\"}}]": "do_not_predict_loop_action"
+    },
+    "rules_not_in_stories": [
+      "handling active loops and forms - order_form",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"slots\": {\"end_order\": [1.0, 0.0]}, \"user\": {\"intent\": \"order\"}}, {\"prev_action\": {\"action_name\": \"order_form\"}, \"slots\": {\"end_order\": [1.0, 0.0]}, \"user\": {\"intent\": \"order\"}}]",
+      "predicting default action with intent back",
+      "predicting default action with intent session_start",
+      "predicting default action with intent restart",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"slots\": {\"end_order\": [1.0, 0.0]}, \"user\": {\"intent\": \"bot_challenge\"}}, {\"prev_action\": {\"action_name\": \"utter_iamabot\"}, \"slots\": {\"end_order\": [1.0, 0.0]}, \"user\": {\"intent\": \"bot_challenge\"}}]",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"slots\": {\"end_order\": [1.0, 0.0]}, \"user\": {\"intent\": \"goodbye\"}}, {\"prev_action\": {\"action_name\": \"utter_goodbye\"}, \"slots\": {\"end_order\": [1.0, 0.0]}, \"user\": {\"intent\": \"goodbye\"}}]",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"slots\": {\"end_order\": [1.0, 0.0]}, \"user\": {\"intent\": \"bot_challenge\"}}]",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"slots\": {\"end_order\": [1.0, 0.0]}, \"user\": {\"intent\": \"goodbye\"}}]"
+    ]
+  }
+}

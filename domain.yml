@@ -1,6 +1,6 @@
 version: '3.0'
 session_config:
-  session_expiration_time: 60
+  session_expiration_time: 360
   carry_over_slots_to_new_session: true
 
 intents:
@@ -180,6 +180,7 @@ actions:
 - utter_ask_user_side
 - utter_anything_else
 - action_hello_world
+- action_calculate_total
 - validate_order_form
 
 forms:

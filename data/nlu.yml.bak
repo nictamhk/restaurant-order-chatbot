@@ -13,10 +13,9 @@ nlu:
     - let's go
     - hey dude
     - good afternoon
-    - Hi there, can I order with you?
     - Howdy
-    - I would like to order
     - Good morning
+    - hey there, can I order?
 - intent: chitchat
   examples: |
     - How's it going?
@@ -27,6 +26,12 @@ nlu:
     - Good day, how's it going?
     - Hello there, how's it going?
     - Good afternoon, how's it going?
+    - Hello, how was your day?
+- intent: greetings order intention
+  examples: |
+    - I would like to order
+    - Hi there, can I order with you?
+    - Can I order now?
 - intent: goodbye
   examples: |
     - see you
@@ -63,6 +68,10 @@ nlu:
     - indeed
     - Sure thing
     - yes, that's right
+    - yes that's right
+    - yeah, let's do it
+    - Yes that's right
+    - That's right
 - intent: confirm.deny
   examples: |
     - No
@@ -114,6 +123,7 @@ nlu:
     - Change
     - Modify my order
     - Undo
+    - I will have [milk tea](drink) instead
 - intent: order
   examples: |
     - I would like the [chicken burger](main dish) please.
@@ -136,6 +146,14 @@ nlu:
     - Can I also have a [medium](size) [coke](drink) please
     - I will have a [large]{"entity": "size", "group": "3"} [coke](drink) please
     - Sure, I will have a [Filet o Fish](main dish)
+    - May I have the [Quarter Pounder with Bacon](main dish) please?
+    - Can I also have a [Big Mac](main dish)
+    - I'll take the [Hash Brown](side) please
+    - I'll have the [Hash Brown](side) please
+    - [Fries](side) please.
+    - I will have a [coke](drink) please
+    - Can I get a [filet o fish](main dish) please
+    - Can I have a [salad](side)?
 - intent: inquiry
   examples: |
     - What do you have in your menu?
@@ -155,26 +173,29 @@ nlu:
     - I'm done with my order
     - That's all for me today
     - No thanks, just the [Filet o Fish](main dish) is enough
+    - That's all I'll have for today
+    - Nothing else.
+    - I'm good with my order.
+    - No thank you, that'll be all for today
 - intent: payment
   examples: |
     - I will pay by [cash](payment).
     - [Credit card](payment) please.
     - I will pay by [Octopus](payment) please
     - I'll pay by [Octopus](payment) please
+    - [Pay wave](payment) please
+    - By [Octopus](payment) please
+    - [octopus](payment)
 - intent: mood_great
   examples: |
     - perfect
     - great
     - amazing
-    - feeling like a king
     - wonderful
     - I am feeling very good
     - I am great
     - I am amazing
-    - I am going to save the world
-    - super stoked
     - extremely good
-    - so so perfect
     - so good
     - so perfect
 - intent: mood_unhappy
@@ -190,8 +211,7 @@ nlu:
     - unhappy
     - not good
     - not very good
-    - extremly sad
-    - so saad
+    - extremely sad
     - so sad
 - intent: bot_challenge
   examples: |

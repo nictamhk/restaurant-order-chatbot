@@ -109,6 +109,7 @@ nlu:
     - that's not right
     - stop asking
     - I want to do something else
+
 - intent: order.changed
   examples: |
     - Actually I will have this instead.

@@ -47,27 +47,31 @@ class ValidateOrderForm (FormValidationAction):
         # Check if item is offered
         if (user_main is not None and user_main not in MENU['main']):
             dispatcher.utter_message(response = "utter_item_not_offered")
-            return {"user_main": None}
+            #return {"user_main": None}
+            SlotSet("user_main", None)
         
         elif (user_side is not None and user_side not in MENU['side']):
             dispatcher.utter_message(response = "utter_item_not_offered")
-            return {"user_side": None}
+            SlotSet("user_side", None)
+            #return {"user_side": None}
         
         elif (user_drink is not None and user_drink not in MENU['drink']):
             dispatcher.utter_message(response = "utter_item_not_offered")
-            return {"user_drink": None}
+            SlotSet("user_drink", None)
+            #return {"user_drink": None}
         
         elif (user_main is not None and user_main in MENU['main']):
-            dispatcher.utter_message("Alright, so", str(user_main), "for the main course.")
-            return {"user_main": user_main} #Validated
+            dispatcher.utter_message("Alright, so", user_main, "for the main course.")
+            #print (user_main)
+            #return {"user_main": user_main} #Validated
         
         elif (user_side is not None and user_side in MENU['side']):
-            dispatcher.utter_message("Got it,", str(user_side), "for your side.")
-            return {"user_side": user_side} #Validated
+            dispatcher.utter_message("Got it,", user_side, "for your side.")
+            #return {"user_side": user_side} #Validated
         
         elif (user_drink is not None and user_drink in MENU['drink']):
-            dispatcher.utter_message("Okay,", str(user_drink), "to drink.")
-            return {"user_drink": user_drink} #Validated
+            dispatcher.utter_message("Okay,", user_drink, "to drink.")
+            #return {"user_drink": user_drink} #Validated
         
                 
         # Check if drink size has been defined as well
@@ -107,6 +111,7 @@ class CalculateSubTotal (Action):
         return price_dict
         
     def fetch_slots(tracker):
+        
         ordered_items = []
         main_ordered = tracker.get_slot("user_main")
         if main_ordered is not None:
@@ -154,7 +159,8 @@ class CalculateSubTotal (Action):
         
         if slot_value.lower() in self.menu_db("main"):
             price += price_list[slot_value.lower()]
-            SlotSet("subtotal", price)
+            print(slot_value, price)
+            return [SlotSet("subtotal", str(price))]
             
         else:
             dispatcher.utter_message(response = "utter_item_not_offered")

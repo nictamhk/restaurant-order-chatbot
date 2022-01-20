@@ -13,6 +13,7 @@ stories:
     - active_loop: null
     - slot_was_set:
         - confirm_order: true
+    - action: validate_order_form
     - action: action_calculate_total
     - action: utter_order_confirm
     - action: action_listen
@@ -29,6 +30,7 @@ stories:
     - slot_was_set:
         - end_order: true
     - action: validate_order_form
+    - action: action_calculate_total
     - action: utter_total
     - intent: payment
     - action: utter_thank_you
@@ -200,5 +202,126 @@ stories:
   - intent: payment
     entities:
     - payment: octopus
+  - action: utter_thank_you
+  - action: utter_goodbye
+
+- story: interactive_story_1
+  steps:
+  - intent: order
+    entities:
+    - main dish: cheeseburger
+  - slot_was_set:
+    - user_main: cheeseburger
+  - action: order_form
+  - active_loop: order_form
+  - slot_was_set:
+    - requested_slot: user_side
+
+- story: interactive_story_2
+  steps:
+  - intent: chitchat
+  - action: utter_chitchat_greet
+  - intent: order
+    entities:
+    - main dish: cheeseburger
+  - slot_was_set:
+    - user_main: cheeseburger
+  - action: order_form
+  - active_loop: order_form
+  - slot_was_set:
+    - requested_slot: user_side
+  - slot_was_set:
+    - user_side: salad
+  - slot_was_set:
+    - requested_slot: user_drink
+  - intent: confirm.deny
+  - action: utter_anything_else
+  - intent: confirm.deny
+  - action: utter_order_confirm
+  - intent: confirm.affirm
+  - action: utter_total
+  - intent: payment
+    entities:
+    - payment: Octopus
+  - action: utter_thank_you
+  - action: utter_goodbye
+
+- story: interactive_story_1
+  steps:
+  - intent: order
+    entities:
+    - main dish: cheeseburger
+  - slot_was_set:
+    - user_main: cheeseburger
+  - action: order_form
+  - active_loop: order_form
+  - slot_was_set:
+    - requested_slot: user_side
+  - slot_was_set:
+    - user_side: salad
+  - slot_was_set:
+    - requested_slot: user_drink
+  - intent: confirm.deny
+  - action: utter_anything_else
+  - intent: confirm.affirm
+  - action: utter_total
+  - action: action_calculate_total
+  - action: utter_total
+
+- story: interactive_story_2
+  steps:
+  - intent: order
+    entities:
+    - main dish: cheeseburger
+  - slot_was_set:
+    - user_main: cheeseburger
+  - action: order_form
+  - active_loop: order_form
+  - slot_was_set:
+    - requested_slot: user_side
+  - intent: confirm.deny
+  - action: action_calculate_total
+  - action: utter_total
+
+- story: interactive_story_3
+  steps:
+  - intent: order
+    entities:
+    - main dish: cheeseburger
+  - slot_was_set:
+    - user_main: cheeseburger
+  - action: order_form
+  - active_loop: order_form
+  - slot_was_set:
+    - requested_slot: user_side
+  - intent: confirm.deny
+  - action: utter_anything_else
+  - intent: terminate.order
+  - action: utter_order_confirm
+  - intent: confirm.affirm
+  - action: action_calculate_total
+  - action: utter_total
+
+- story: interactive_story_4
+  steps:
+  - intent: order
+    entities:
+    - main dish: cheeseburger
+  - slot_was_set:
+    - user_main: cheeseburger
+  - action: order_form
+  - active_loop: order_form
+  - slot_was_set:
+    - requested_slot: user_side
+  - intent: terminate.order
+  - action: utter_order_confirm
+  - intent: confirm.affirm
+  - action: action_calculate_total
+  - slot_was_set:
+    - subtotal: '25'
+  - action: utter_total
+  - intent: payment
+    entities:
+    - payment: Octopus
   - action: utter_thank_you
   - action: utter_goodbye

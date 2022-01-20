@@ -11,9 +11,14 @@ stories:
     - active_loop: order_form
     - intent: terminate.order
     - active_loop: null
+    - slot_was_set:
+        - confirm_order: true
+    - action: action_calculate_total
     - action: utter_order_confirm
     - action: action_listen
     - action: utter_anything_else
+    - slot_was_set:
+        - confirm_order: false
     - checkpoint: nothing_else
     
 - story: no more order
@@ -24,6 +29,7 @@ stories:
     - slot_was_set:
         - end_order: true
     - action: validate_order_form
+    - action: action_calculate_total
     - action: utter_total
     - intent: payment
     - action: utter_thank_you
@@ -195,5 +201,46 @@ stories:
   - intent: payment
     entities:
     - payment: octopus
+  - action: utter_thank_you
+  - action: utter_goodbye
+
+- story: interactive_story_1
+  steps:
+  - intent: order
+    entities:
+    - main dish: cheeseburger
+  - slot_was_set:
+    - user_main: cheeseburger
+  - action: order_form
+  - active_loop: order_form
+  - slot_was_set:
+    - requested_slot: user_side
+
+- story: interactive_story_2
+  steps:
+  - intent: chitchat
+  - action: utter_chitchat_greet
+  - intent: order
+    entities:
+    - main dish: cheeseburger
+  - slot_was_set:
+    - user_main: cheeseburger
+  - action: order_form
+  - active_loop: order_form
+  - slot_was_set:
+    - requested_slot: user_side
+  - slot_was_set:
+    - user_side: salad
+  - slot_was_set:
+    - requested_slot: user_drink
+  - intent: confirm.deny
+  - action: utter_anything_else
+  - intent: confirm.deny
+  - action: utter_order_confirm
+  - intent: confirm.affirm
+  - action: utter_total
+  - intent: payment
+    entities:
+    - payment: Octopus
   - action: utter_thank_you
   - action: utter_goodbye

@@ -325,3 +325,71 @@ stories:
     - payment: Octopus
   - action: utter_thank_you
   - action: utter_goodbye
+
+- story: interactive_story_1
+  steps:
+  - intent: chitchat
+  - action: utter_chitchat_greet
+  - intent: order
+    entities:
+    - main dish: Filet o Fish
+  - slot_was_set:
+    - user_main: Filet o Fish
+  - action: order_form
+  - active_loop: order_form
+  - slot_was_set:
+    - user_main: null
+  - slot_was_set:
+    - requested_slot: user_main
+
+- story: interactive_story_2
+  steps:
+  - intent: order
+    entities:
+    - main dish: filet o fish
+  - slot_was_set:
+    - user_main: filet o fish
+  - action: order_form
+  - active_loop: order_form
+  - slot_was_set:
+    - user_main: filet o fish
+  - slot_was_set:
+    - main_validated: true
+  - slot_was_set:
+    - requested_slot: user_side
+  - slot_was_set:
+    - user_side: salad
+  - slot_was_set:
+    - user_side: null
+  - slot_was_set:
+    - requested_slot: user_side
+  - slot_was_set:
+    - user_side: fries
+  - slot_was_set:
+    - user_side: fries
+  - slot_was_set:
+    - side_validated: true
+  - slot_was_set:
+    - requested_slot: user_drink
+  - slot_was_set:
+    - user_drink: coke
+  - slot_was_set:
+    - user_drink: coke
+  - slot_was_set:
+    - drink_validated: true
+  - slot_was_set:
+    - requested_slot: user_drink_size
+  - intent: order
+    entities:
+    - size: medium
+  - action: utter_order_confirm
+  - intent: confirm.affirm
+  - action: action_calculate_total
+  - slot_was_set:
+    - subtotal: '35'
+  - action: utter_total
+  - intent: payment
+    entities:
+    - payment: cash
+  - action: utter_thank_you
+  - action: utter_goodbye

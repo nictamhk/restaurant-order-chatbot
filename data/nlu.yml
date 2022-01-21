@@ -28,6 +28,7 @@ nlu:
     - Good afternoon, how's it going?
     - Hello, how was your day?
     - Hello there, how's your day going
+    - Good day, how do you do?
 - intent: greetings order intention
   examples: |
     - I would like to order
@@ -171,6 +172,12 @@ nlu:
     - Hi, I will have a [cheeseburger](main dish) please
     - Hi, can I order a [cheeseburger](main dish) please.
     - Hi, can I have a [cheeseburger](main dish) please
+    - Sure, can I have a [Filet o Fish](main dish) please
+    - Hi, can I have a [filet o fish](main dish)
+    - I'll have a [salad](side) please
+    - Hmm, I will have [fries](side) then
+    - Sure, [medium]{"entity": "size", "group": "2"} [coke](drink) please
+    - [medium]{"entity": "size", "group": "2"} please
 - intent: inquiry
   examples: |
     - What do you have in your menu?
@@ -196,6 +203,7 @@ nlu:
     - No thank you, that'll be all for today
     - No, that will be all for today
     - No thanks, that's all for me for today
+    - I'm good to go
 - intent: payment
   examples: |
     - I will pay by [cash](payment).
@@ -206,7 +214,7 @@ nlu:
     - By [Octopus](payment) please
     - [octopus](payment)
     - [Octopus](payment) please
-    - [Octopus](payment) please
+    - Pay with [cash](payment)
 - intent: mood_great
   examples: |
     - perfect

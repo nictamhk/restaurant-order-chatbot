@@ -25,11 +25,7 @@ entities:
 - payment
 - side
 - quantity
-- size:
-    groups:
-    - 1
-    - 2
-    - 3
+- size
     
 slots:
     user_main:
@@ -59,15 +55,22 @@ slots:
         mappings:
         - type: from_entity
           entity: size
-        influence_conversation: true
         
-    main_ordered:
+    main_validated:
         type: bool
+        initial_value: false
         mappings:
         - type: custom
         
-    side_ordered:
+    side_validated:
         type: bool
+        initial_value: false
+        mappings:
+        - type: custom
+        
+    drink_validated:
+        type: bool
+        initial_value: false
         mappings:
         - type: custom
         
@@ -125,9 +128,9 @@ responses:
   utter_order_confirm:
   - text: Got it, so you've ordered a {user_main} with a {user_side} and a {user_drink_size}{user_drink}. Is that right?
   utter_total:
-  - text: Your total comes to {subtotal}. How would you like to pay today?
-  - text: Your total today is {subtotal}. How would you like to pay?
-  - text: That would be {subtotal}. How are you paying today?
+  - text: Your total comes to {subtotal} dollars. How would you like to pay today?
+  - text: Your total today is {subtotal} dollars. How would you like to pay?
+  - text: That would be {subtotal} dollars. How are you paying today?
   utter_thank_you:
   - text: Your payment is well received.
   utter_cheer_up:
@@ -157,7 +160,7 @@ responses:
   utter_anything_else:
   - text: Anything else you would like today?
   - text: Can I get you something else?
-  - text: Do you want something to drink?
+  - text: Do you want anything else?
   - text: Anything else?
   - text: Is there anything else I can get for you today?
   - text: Is that all for today?
@@ -175,9 +178,9 @@ responses:
   - text: For your drink, what size?
   - text: What size would you like your {user_drink}?
   utter_item_not_offered:
-  - text: I'm sorry, we don't offer this at our restaurant. Would you like to try something else?
-  - text: My apologies, it looks like that's not available at our restaurant today. Do you want something else instead?
-  - text: Sorry, we don't have that right now. Want to try something else?
+  - text: I'm sorry, we don't offer this at our restaurant.
+  - text: My apologies, it looks like that's not available at our restaurant today. 
+  - text: Sorry, we don't have that right now. 
   utter_recommendations:
   - text: We have this {suggestion} with a discount now. Would you like to give it a try?
   - text: May I suggest {suggestion}? It is finger-lickin' good.

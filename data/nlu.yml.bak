@@ -27,6 +27,7 @@ nlu:
     - Hello there, how's it going?
     - Good afternoon, how's it going?
     - Hello, how was your day?
+    - Hello there, how's your day going
 - intent: greetings order intention
   examples: |
     - I would like to order
@@ -72,6 +73,9 @@ nlu:
     - yeah, let's do it
     - Yes that's right
     - That's right
+    - yea
+    - Yes, that's right
+    - yes thats right
 - intent: confirm.deny
   examples: |
     - No
@@ -86,6 +90,11 @@ nlu:
     - No please
     - wait
     - Absolutely not
+    - No thank you.
+    - no
+    - no thank you
+    - no thanks
+    - No thanks.
 - intent: dissatisfied
   examples: |
     - This is not what I wanted
@@ -154,6 +163,14 @@ nlu:
     - I will have a [coke](drink) please
     - Can I get a [filet o fish](main dish) please
     - Can I have a [salad](side)?
+    - Hello, can I order a [cheeseburger](main dish)?
+    - I would like a [cheeseburger](main dish)
+    - Sure, do you have any [salad](side)?
+    - Good afternoon, I'd want a [cheeseburger](main dish)
+    - I'll have a [salad](side) please
+    - Hi, I will have a [cheeseburger](main dish) please
+    - Hi, can I order a [cheeseburger](main dish) please.
+    - Hi, can I have a [cheeseburger](main dish) please
 - intent: inquiry
   examples: |
     - What do you have in your menu?
@@ -177,6 +194,8 @@ nlu:
     - Nothing else.
     - I'm good with my order.
     - No thank you, that'll be all for today
+    - No, that will be all for today
+    - No thanks, that's all for me for today
 - intent: payment
   examples: |
     - I will pay by [cash](payment).
@@ -186,6 +205,8 @@ nlu:
     - [Pay wave](payment) please
     - By [Octopus](payment) please
     - [octopus](payment)
+    - [Octopus](payment) please
+    - [Octopus](payment) please
 - intent: mood_great
   examples: |
     - perfect

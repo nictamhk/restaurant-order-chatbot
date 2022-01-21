@@ -37,42 +37,57 @@ class ValidateOrderForm (FormValidationAction):
     def name(self):
         return "validate_order_form"
     
+    def to_lower(self, item):
+        if item is not None:
+            return item.lower()
+        
+        else:
+            return None
+    
     async def run(self, dispatcher, tracker, domain):
-        # Grab item ordered
-        user_main = tracker.get_slot("user_main")
-        user_side = tracker.get_slot("user_side")
-        user_drink = tracker.get_slot("user_drink")
-        user_drink_size = tracker.get_slot("user_drink_size")
+        # Grab items ordered
+        user_main = self.to_lower(tracker.get_slot("user_main"))
+        user_side = self.to_lower(tracker.get_slot("user_side"))
+        user_drink = self.to_lower(tracker.get_slot("user_drink"))
+        user_drink_size = self.to_lower(tracker.get_slot("user_drink_size"))
+        
+        # Status of the components ordered
+        main_validated = tracker.get_slot("main_validated")
+        side_validated = tracker.get_slot("side_validated")
+        drink_validated = tracker.get_slot("drink_validated")
         
         # Check if item is offered
         if (user_main is not None and user_main not in MENU['main']):
             dispatcher.utter_message(response = "utter_item_not_offered")
             #return {"user_main": None}
-            SlotSet("user_main", None)
+            return [SlotSet("user_main", None)]
         
         elif (user_side is not None and user_side not in MENU['side']):
             dispatcher.utter_message(response = "utter_item_not_offered")
-            SlotSet("user_side", None)
+            return [SlotSet("user_side", None)]
             #return {"user_side": None}
         
         elif (user_drink is not None and user_drink not in MENU['drink']):
             dispatcher.utter_message(response = "utter_item_not_offered")
-            SlotSet("user_drink", None)
+            return [SlotSet("user_drink", None)]
             #return {"user_drink": None}
         
-        elif (user_main is not None and user_main in MENU['main']):
-            dispatcher.utter_message("Alright, so", user_main, "for the main course.")
-            #print (user_main)
-            #return {"user_main": user_main} #Validated
+        if (user_main is not None and user_main in MENU['main'] and not main_validated):
+            str_confirm = "Alright, so I've got " + user_main + " for your main course."
+            dispatcher.utter_message(str_confirm)
+            return [SlotSet("user_main", user_main), SlotSet("main_validated", True)]
         
-        elif (user_side is not None and user_side in MENU['side']):
-            dispatcher.utter_message("Got it,", user_side, "for your side.")
+        if (user_side is not None and user_side in MENU['side'] and not side_validated):
+            str_confirm = "Got it, " + user_side + " for your side."
+            dispatcher.utter_message(str_confirm)
+            return [SlotSet("user_side", user_side), SlotSet("side_validated", True)]
             #return {"user_side": user_side} #Validated
         
-        elif (user_drink is not None and user_drink in MENU['drink']):
-            dispatcher.utter_message("Okay,", user_drink, "to drink.")
+        if (user_drink is not None and user_drink in MENU['drink'] and not drink_validated):
+            str_confirm = "Okay, " + user_drink + " to drink."
+            dispatcher.utter_message(str_confirm)
+            return [SlotSet("user_drink", user_drink), SlotSet("drink_validated", True)]
             #return {"user_drink": user_drink} #Validated
-        
                 
         # Check if drink size has been defined as well
         if (user_drink is not None and user_drink in MENU['drink'] and \
@@ -119,6 +134,19 @@ class CalculateSubTotal (Action):
             
         return ordered_items
     
+    def get_price(self, entry):
+        price = 0
+        
+        try:
+            slot_value = entry[0].lower()
+            domain = entry[1]
+            price = MENU[domain][slot_value.lower()]
+            
+        except:
+            price = 0
+            
+        return price
+    
     def validate_user_main(self, slot_value, dispatcher, tracker, domain):
         if slot_value.lower() in self.menu_db("main"):
             return {"user_main": slot_value}
@@ -133,17 +161,16 @@ class CalculateSubTotal (Action):
     
         else:
             return {"user_side": None}
-        
-    def price_lookup(self, item, type):
-        pass
     
     async def run(self, dispatcher, tracker, domain):
         price = 0
         
         # Grab the ordered items
-        main_ordered = tracker.get_slot("user_main")
-        side_ordered = tracker.get_slot("user_side")
-        drink_ordered = tracker.get_slot("user_drink")
+        main_ordered = (tracker.get_slot("user_main"), "main")
+        side_ordered = (tracker.get_slot("user_side"), "side")
+        drink_ordered = (tracker.get_slot("user_drink"), "drink")
+        
+        ordered = [main_ordered, side_ordered, drink_ordered]
         
         # Option when customer wants to confirm order
         confirm_order = tracker.get_slot("confirm_order")
@@ -152,19 +179,15 @@ class CalculateSubTotal (Action):
         end_order = tracker.get_slot("end_order")
         
         # Order status
-        slot_value = tracker.get_slot('user_main')
         curr_subtotal = tracker.get_slot('subtotal')
-        
-        price_list = self.menu_db("main")
-        
-        if slot_value.lower() in self.menu_db("main"):
-            price += price_list[slot_value.lower()]
-            print(slot_value, price)
+
+        for i in ordered:
+            price += self.get_price(i)
             return [SlotSet("subtotal", str(price))]
             
-        else:
-            dispatcher.utter_message(response = "utter_item_not_offered")
-            price = 0
+        # else:
+        #     dispatcher.utter_message(response = "utter_item_not_offered")
+        #     price = 0
             
         if confirm_order:
             dispatcher.utter_message("So this is what you've ordered:", \
@@ -175,3 +198,18 @@ class CalculateSubTotal (Action):
         
         if end_order:
             dispatcher.utter_message(response = "utter_total", subtotal = str(curr_subtotal))
+            
+class confirmOrder (Action):
+    def name (self):
+        return "confirm_order"
+    
+    async def run (self, dispatcher, tracker, domain):
+        main_ordered = tracker.get_slot("user_main")
+        side_ordered = tracker.get_slot("user_side")
+        drink_ordered = tracker.get_slot("user_drink")
+        
+        dispatcher.utter_message("So this is what you've ordered:", \
+                                     str(main_ordered or ''), ", ", \
+                                     str(side_ordered or ''), ", ", \
+                                     str(drink_ordered or ''),
+                                     ". Does that sound right?")

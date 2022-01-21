@@ -183,7 +183,8 @@ class CalculateSubTotal (Action):
 
         for i in ordered:
             price += self.get_price(i)
-            return [SlotSet("subtotal", str(price))]
+            
+        return [SlotSet("subtotal", str(price))]
             
         # else:
         #     dispatcher.utter_message(response = "utter_item_not_offered")

@@ -212,7 +212,9 @@ nlu:
     - I'll pay by [Octopus](payment) please
     - [Pay wave](payment) please
     - By [Octopus](payment) please
-    - [octopus](payment)
+    - [Visa](payment)
+    - [Mastercard](payment)
+    - [Visa](payment) card
     - [Octopus](payment) please
     - Pay with [cash](payment)
 - intent: mood_great

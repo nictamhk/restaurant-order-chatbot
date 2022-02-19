@@ -1,0 +1,252 @@
+version: "3.0"
+nlu:
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - morning
+    - hey there
+    - let's go
+    - hey dude
+    - good afternoon
+    - Howdy
+    - Good morning
+    - hey there, can I order?
+- intent: chitchat
+  examples: |
+    - How's it going?
+    - The weather is bad out today.
+    - The weather is surely nice out today.
+    - How are you?
+    - How's everything going for you?
+    - Good day, how's it going?
+    - Hello there, how's it going?
+    - Good afternoon, how's it going?
+    - Hello, how was your day?
+    - Hello there, how's your day going
+    - Good day, how do you do?
+- intent: greetings order intention
+  examples: |
+    - I would like to order
+    - Hi there, can I order with you?
+    - Can I order now?
+- intent: goodbye
+  examples: |
+    - see you
+    - good by
+    - cee you later
+    - good night
+    - bye
+    - goodbye
+    - have a nice day
+    - see you around
+    - bye bye
+    - see you later
+    - thank you
+- intent: confirm.affirm
+  examples: |
+    - yes
+    - thats right
+    - yeah exactly
+    - okay
+    - sure
+    - why not
+    - alright
+    - yep
+    - yeah
+    - fine
+    - for sure
+    - definitely
+    - sure thing
+    - I will take that
+    - sounds good
+    - cool
+    - that sounds good
+    - of course
+    - indeed
+    - Sure thing
+    - yes, that's right
+    - yes that's right
+    - yeah, let's do it
+    - Yes that's right
+    - That's right
+    - yea
+    - Yes, that's right
+    - yes thats right
+- intent: confirm.deny
+  examples: |
+    - No
+    - No thanks
+    - No thank you
+    - Nah
+    - Never mind
+    - Excuse me
+    - Scratch that
+    - I don't need it, thank you.
+    - That's okay.
+    - No please
+    - wait
+    - Absolutely not
+    - No thank you.
+    - no
+    - no thank you
+    - no thanks
+    - No thanks.
+- intent: dissatisfied
+  examples: |
+    - This is not what I wanted
+    - That's not right
+    - Wrong
+    - You're not helping
+    - You can't help me
+    - Can I talk to a real person instead
+    - Can I talk to your manager
+    - You are not understanding me
+    - Stop
+    - Go back
+    - that's not what I want to do
+    - you're no help
+    - this is no help at all
+    - this isn't working
+    - I already told you that
+    - don't like that
+    - I don't want to tell you that
+    - none of your business
+    - that's not right
+    - stop asking
+    - I want to do something else
+- intent: order.changed
+  examples: |
+    - Actually I will have this instead.
+    - You know what? I will have the [chicken](main dish) instead.
+    - Sorry, should be [Big Mac](main dish) rather than the [Quarter Pounder](main dish).
+    - Sorry, it should be [sprite](drink) instead of [coke](drink).
+    - I want [large]{"entity": "size", "group": "3"} instead of [medium]{"entity": "size", "group": "2"}.
+    - Let's try the [poutine](side) instead.
+    - I changed my mind.
+    - Do you know what?
+    - Forget what I just said.
+    - Change
+    - Modify my order
+    - Undo
+    - I will have [milk tea](drink) instead
+- intent: order
+  examples: |
+    - I would like the [chicken burger](main dish) please.
+    - I would take the [McChicken](main dish).
+    - Can I have the [Big Mac](main dish) please?
+    - May I have the [McDouble](main dish) with [medium]{"entity": "size", "group": "2"} [coke](drink) and [medium]{"entity": "size", "group": "2"} [fries](side)?
+    - [McChicken](main dish).
+    - I'll try the [cheeseburger](main dish) today.
+    - I'll have the [angus beef burger](main dish).
+    - May I have the [Big Mac](main dish) please?
+    - A [cheeseburger](main dish) please
+    - Can I get a [Filet o Fish](main dish)?
+    - I'll have a [Caesar Salad](side) and a [cheeseburger](main dish) please
+    - Hello, can I get a [cheeseburger](main dish) please?
+    - I would like a [filet o fish](main dish)
+    - For combo, I would like [small]{"entity": "size", "group": "1"} [coffee](drink) and [large]{"entity": "size", "group": "3"} [fries](side) to go with it.
+    - For the drink, I will have the [medium]{"entity": "size", "group": "2"} [coke](drink).
+    - For the side, can I have the [large]{"entity": "size", "group": "3"} [potato wedges](side)?
+    - [small]{"entity": "size", "group": "1"} [coffee](drink) and [medium]{"entity": "size", "group": "2"} [fries](side) please.
+    - Can I also have a [medium](size) [coke](drink) please
+    - I will have a [large]{"entity": "size", "group": "3"} [coke](drink) please
+    - Sure, I will have a [Filet o Fish](main dish)
+    - May I have the [Quarter Pounder with Bacon](main dish) please?
+    - Can I also have a [Big Mac](main dish)
+    - I'll take the [Hash Brown](side) please
+    - I'll have the [Hash Brown](side) please
+    - [Fries](side) please.
+    - I will have a [coke](drink) please
+    - Can I get a [filet o fish](main dish) please
+    - Can I have a [salad](side)?
+    - Hello, can I order a [cheeseburger](main dish)?
+    - I would like a [cheeseburger](main dish)
+    - Sure, do you have any [salad](side)?
+    - Good afternoon, I'd want a [cheeseburger](main dish)
+    - I'll have a [salad](side) please
+    - Hi, I will have a [cheeseburger](main dish) please
+    - Hi, can I order a [cheeseburger](main dish) please.
+    - Hi, can I have a [cheeseburger](main dish) please
+    - Sure, can I have a [Filet o Fish](main dish) please
+    - Hi, can I have a [filet o fish](main dish)
+    - I'll have a [salad](side) please
+    - Hmm, I will have [fries](side) then
+    - Sure, [medium]{"entity": "size", "group": "2"} [coke](drink) please
+    - [medium]{"entity": "size", "group": "2"} please
+- intent: inquiry
+  examples: |
+    - What do you have in your menu?
+    - What do you recommend?
+    - I don't know what to get.
+    - Any recommendations?
+    - What should I get today?
+    - Hmmm
+- intent: terminate.order
+  examples: |
+    - That is all.
+    - That's it. Thank you.
+    - That's all I will have today.
+    - I will just have this for now.
+    - Can I get the total please?
+    - How much is it in total?
+    - I'm done with my order
+    - That's all for me today
+    - No thanks, just the [Filet o Fish](main dish) is enough
+    - That's all I'll have for today
+    - Nothing else.
+    - I'm good with my order.
+    - No thank you, that'll be all for today
+    - No, that will be all for today
+    - No thanks, that's all for me for today
+    - I'm good to go
+- intent: payment
+  examples: |
+    - I will pay by [cash](payment).
+    - [Credit card](payment) please.
+    - I will pay by [Octopus](payment) please
+    - I'll pay by [Octopus](payment) please
+    - [Pay wave](payment) please
+    - By [Octopus](payment) please
+    - [Visa](payment)
+    - [Mastercard](payment)
+    - [Visa](payment) card
+    - [Octopus](payment) please
+    - Pay with [cash](payment)
+- intent: mood_great
+  examples: |
+    - perfect
+    - great
+    - amazing
+    - wonderful
+    - I am feeling very good
+    - I am great
+    - I am amazing
+    - extremely good
+    - so good
+    - so perfect
+- intent: mood_unhappy
+  examples: |
+    - my day was horrible
+    - I am sad
+    - I don't feel very well
+    - I am disappointed
+    - super sad
+    - I'm so sad
+    - sad
+    - very sad
+    - unhappy
+    - not good
+    - not very good
+    - extremely sad
+    - so sad
+- intent: bot_challenge
+  examples: |
+    - are you a bot?
+    - are you a human?
+    - am I talking to a bot?
+    - am I talking to a human?

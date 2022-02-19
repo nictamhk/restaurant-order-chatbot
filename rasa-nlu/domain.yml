@@ -1,0 +1,228 @@
+version: '3.0'
+session_config:
+  session_expiration_time: 120
+  carry_over_slots_to_new_session: true
+
+intents:
+- greet
+- chitchat
+- payment
+- terminate.order
+- order
+- inquiry
+- goodbye
+- confirm.affirm
+- confirm.deny
+- dissatisfied
+- order.changed
+- mood_great
+- mood_unhappy
+- bot_challenge
+
+entities:
+- drink
+- main dish
+- payment
+- side
+- quantity
+- size
+    
+slots:
+    user_main:
+        type: text
+        mappings:
+        - type: from_entity
+          entity: "main dish"
+        
+    user_side:
+        type: text
+        mappings:
+        - type: from_entity
+          entity: side
+    
+    user_drink:
+        type: text
+        mappings:
+        - type: from_entity
+          entity: drink
+    
+    user_drink_size:
+        type: categorical
+        values:
+            - small
+            - medium
+            - large
+        mappings:
+        - type: from_entity
+          entity: size
+        
+    main_validated:
+        type: bool
+        initial_value: false
+        mappings:
+        - type: custom
+        
+    side_validated:
+        type: bool
+        initial_value: false
+        mappings:
+        - type: custom
+        
+    drink_validated:
+        type: bool
+        initial_value: false
+        mappings:
+        - type: custom
+        
+    size_specified:
+        type: bool
+        mappings:
+        - type: custom
+        
+    end_order:
+        type: bool
+        initial_value: false
+        mappings:
+        - type: custom
+        
+    confirm_order:
+        type: bool
+        initial_value: false
+        mappings:
+        - type: custom
+        
+    price:
+        type: float
+        min_value: 0.0
+        max_value: 1000.0
+        mappings:
+        - type: custom
+        
+    subtotal:
+        type: float
+        min_value: 0.0
+        max_value: 1000.0
+        mappings:
+        - type: custom
+        
+    suggestion:
+        type: text
+        mappings:
+        - type: custom
+    
+responses:
+  utter_chitchat_greet:
+  - text: Welcome to the restaurant. Doing well here. Can I take your order?
+  - text: Not bad thanks! How can I help you today?
+  - text: Great! Can I get you something to eat or drink?
+  utter_greet:
+  - text: Hello there! How can I help you today?
+  - text: Hello! May I take your order please?
+  - text: Hey there! What would you like today?
+  - text: Hi! I can take your order.
+  - text: Good day! Welcome to the restaurant. May I take your order?
+  - text: Welcome to the restaurant! How may I help you today?
+  - text: Hey there, can I get you something to eat or drink?
+  utter_chitchat:
+  - text: Great to hear! I am doing well.
+  utter_order_confirm:
+  - text: Got it, so you've ordered a {user_main} with a {user_side} and a {user_drink_size}{user_drink}. Is that right?
+  utter_total:
+  - text: Your total comes to {subtotal} dollars. How would you like to pay today?
+  - text: Your total today is {subtotal} dollars. How would you like to pay?
+  - text: That would be {subtotal} dollars. How are you paying today?
+  utter_thank_you:
+  - text: Your payment is well received.
+  utter_cheer_up:
+  - text: 'Here is something to cheer you up:'
+    image: https://i.imgur.com/nGF1K8f.jpg
+  utter_sorry:
+  - text: Sorry I did not get you. Let's take a step back.
+  utter_did_that_help:
+  - text: Did that help you?
+  utter_happy:
+  - text: Great, carry on!
+  utter_goodbye:
+  - text: Thanks for ordering with me! You can retrieve your order by the counter over there.
+  - text: Goodbye! You can get your order at the counter in a few minutes.
+  - text: See you next time! Please go get your order at the counter.
+  - text: Bye for now! Please wait a few minutes as we prepare your order.
+  utter_goodbye_no_order:
+  - text: That's all good. See you next time!
+  utter_iamabot:
+  - text: I am a bot, powered by Rasa.
+  utter_ask_user_side:
+  - text: Would you like any sides to go with your {user_main} today?
+  - text: What would you like to go with your meal?
+  utter_ask:
+  - text: What would you like?
+  - text: What can I get for you?
+  utter_anything_else:
+  - text: Anything else you would like today?
+  - text: Can I get you something else?
+  - text: Do you want anything else?
+  - text: Anything else?
+  - text: Is there anything else I can get for you today?
+  - text: Is that all for today?
+  utter_ask_user_main:
+  - text: Do you want to get something to eat?
+  - text: Anything to go with your side order today?
+  - text: Anything else?
+  - text: Can I get you something else?
+  utter_ask_user_drink:
+  - text: Anything to drink?
+  - text: Can I get you something to drink?
+  - text: Something to drink?
+  - text: Would you like a drink to go with your meal?
+  utter_ask_user_drink_size:
+  - text: For your drink, what size?
+  - text: What size would you like your {user_drink}?
+  utter_item_not_offered:
+  - text: I'm sorry, we don't offer this at our restaurant.
+  - text: My apologies, it looks like that's not available at our restaurant today. 
+  - text: Sorry, we don't have that right now. 
+  utter_recommendations:
+  - text: We have this {suggestion} with a discount now. Would you like to give it a try?
+  - text: May I suggest {suggestion}? It is finger-lickin' good.
+  - text: I think you can try {suggestion}. Would you like to take this?
+
+actions:
+- utter_goodbye
+- utter_greet
+- utter_order_confirm
+- utter_thank_you
+- utter_total
+- utter_ask
+- utter_ask_user_main
+- utter_ask_user_side
+- utter_ask_user_drink
+- utter_ask_user_drink_size
+- utter_anything_else
+- utter_chitchat
+- utter_did_that_help
+- utter_goodbye_no_order
+- utter_iamabot
+- utter_item_not_offered
+- utter_recommendations
+- utter_sorry
+- utter_chitchat_greet
+- action_hello_world
+- action_calculate_total
+- validate_order_form
+
+forms:
+  order_form:
+    required_slots:
+        - user_main
+        - user_side
+        - user_drink
+        - user_drink_size
+        
+lookup:
+    user_main:
+        - Big Mac
+        - Quarter Pounder
+        - Filet o Fish
+        - Cheeseburger
+        - Angus Beef Burger
+        - McChicken

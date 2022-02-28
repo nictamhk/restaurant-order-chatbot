@@ -1,4 +1,4 @@
-from client.webapplication.server.server import *
+from client.webapp.server.server import *
 from config import client_config
 
 def start_web_application():

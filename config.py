@@ -6,14 +6,13 @@ client_config = {
 }
 
 riva_config = {
-    "RIVA_SPEECH_API_URL": "127.0.0.1:50051", # Replace the IP port with your hosted RIVA endpoint
-    "WEATHERSTACK_ACCESS_KEY": "",  # Get your access key at - https://weatherstack.com/
+    "RIVA_SPEECH_API_URL": "192.168.1.180:50051", # Replace the IP port with your hosted RIVA endpoint
     "VERBOSE": True  # print logs/details for diagnostics
 }
 
 rasa_config = {
     "VERBOSE": False, # Print logs/details for diagnostics
-    "RASA_API_URL": "http://127.0.0.1:5005", # Replace the IP & Port with the rasa-weatherbot's IP & Port
+    "RASA_API_URL": "http://192.168.1.180:5005", # Replace the IP & Port with the rasa-weatherbot's IP & Port
 }
 
 asr_config = {
@@ -33,4 +32,4 @@ tts_config = {
 rivanlp_config = {
     "VERBOSE": False, # Print logs/details for diagnostics
     "NLU_FALLBACK_THRESHOLD": 0.3 # When Intent's confidence/score is less than this value, intent is set to nlu_fallback
-}
+    }

@@ -6,6 +6,7 @@ from flask import Flask, jsonify, send_from_directory, Response, request, loggin
 from flask_cors import CORS
 from flask import stream_with_context
 from flask_socketio import SocketIO, emit
+import logging
 from os.path import dirname, abspath, join, isdir
 from os import listdir
 from engineio.payload import Payload
@@ -17,20 +18,20 @@ from riva.chatbot.chatbots_multiconversations_management import create_chatbot, 
 '''
 app = Flask(__name__)
 cors = CORS(app)
-#log = logging.getLogger('werkzeug')
-#log.setLevel(logging.ERROR)
+log = logging.getLogger('werkzeug')
+log.setLevel(logging.ERROR)
 Payload.max_decode_packets = 500  # https://github.com/miguelgrinberg/python-engineio/issues/142
-sio = SocketIO(app, logger=False)
+sio = SocketIO(app) # logger = TRUE
 verbose = client_config['VERBOSE']
-VA_INIT_MESSAGE = "Hi, welcome to RIVA weather service. How can I help you?"
+VA_INIT_MESSAGE = "Hello, welcome to our restaurant. How can I help you?"
 
 # Methods to show client
-@app.route('/rivaWeather/')
+@app.route('/orderMain/')
 def get_bot1():
     return send_from_directory("../ui/", "index.html")
 
-@app.route('/rivaWeather/<file>', defaults={'path': ''})
-@app.route('/rivaWeather/<path:path>/<file>')
+@app.route('/orderMain/<file>', defaults={'path': ''})
+@app.route('/orderMain/<path:path>/<file>')
 def get_bot2(path, file):
     return send_from_directory("../ui/" + path, file)
 

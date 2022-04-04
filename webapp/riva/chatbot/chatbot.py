@@ -1,6 +1,6 @@
-#from asr.asr import ASRPipe
-#from rasa.rasa import RASAPipe
-#rom tts.tts import TTSPipe
+from .asr import ASRPipe
+from .rasa import RASAPipe
+from .tts import TTSPipe
 
 class ChatBot(object):
     """

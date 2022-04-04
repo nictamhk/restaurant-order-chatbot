@@ -1,4 +1,4 @@
-#from asr.asr import ASRPipe
+from asr.asr import ASRPipe
 #from rasa.rasa import RASAPipe
 #rom tts.tts import TTSPipe
 

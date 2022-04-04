@@ -1,3 +1,7 @@
+#from asr.asr import ASRPipe
+#from rasa.rasa import RASAPipe
+#rom tts.tts import TTSPipe
+
 class ChatBot(object):
     """
     Pipeline of the chatbot
@@ -23,6 +27,7 @@ class ChatBot(object):
     def asr_fill_buffer(self, audio_in):
         if not self.pause_asr_flag:
             self.asr.fill_buffer(audio_in)
+            
     def get_asr_transcript(self):
         return self.asr.get_transcript()
 

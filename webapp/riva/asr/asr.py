@@ -2,6 +2,7 @@ import grpc
 import riva.modules.client.src.riva_proto.audio_pb2 as ri
 import riva.modules.client.src.riva_proto.riva_asr_pb2 as risr
 import riva.modules.client.src.riva_proto.riva_asr_pb2_grpc as risr_svr
+import queue
 
 """
     An ASR Pipe handles operations from Riva ASR
@@ -13,7 +14,7 @@ class ASRPipe(object):
 
         # Creates a queue
         self._buff = queue.Queue()
-        self._transcript = queue.Queue()
+        self._transcript = queue.Queue() 
 
         self.closed = False
 

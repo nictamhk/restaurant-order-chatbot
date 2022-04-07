@@ -1,6 +1,10 @@
-from .asr import ASRPipe
-from .rasa import RASAPipe
-from .tts import TTSPipe
+import sys
+
+sys.path.append("../riva")
+
+from riva.asr.asr import ASRPipe
+from riva.rasa.rasa import RASAPipe
+from riva.tts.tts import TTSPipe
 
 class ChatBot(object):
     """
